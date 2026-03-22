@@ -2,7 +2,7 @@
 
 Interactive canvas-based particle animation with mouse interaction.
 
-<video src="public/assets/demo.mov" controls muted autoplay loop></video>
+![Particle animation demo](public/assets/demo.gif)
 
 ## Prerequisites
 
