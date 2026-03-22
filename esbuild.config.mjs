@@ -2,12 +2,13 @@ import { build } from "esbuild";
 import { cpSync } from "node:fs";
 
 await build({
-	entryPoints: ["src/index.ts"],
 	bundle: true,
 	minify: true,
 	format: "esm",
 	outdir: "dist",
+	entryPoints: ["src/index.ts", "src/embed.ts"],
 });
 
 cpSync("index.html", "dist/index.html");
+cpSync("embed.html", "dist/embed.html");
 cpSync("src/index.css", "dist/index.css");
