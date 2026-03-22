@@ -8,8 +8,8 @@ const PARTICLE_AREA_DIVISOR = 8000;
 const MAX_ABS_DIRECTION_SPEED = 0.75;
 const CONNECTION_DISTANCE_DIVISOR = 7;
 const OPACITY_DISTANCE_FACTOR = 20000;
-const MOUSE_RADIUS_INIT_DIVISOR = 160;
-const MOUSE_RADIUS_RESIZE_DIVISOR = 80;
+const MOUSE_RADIUS_INIT_DIVISOR = 20;
+const MOUSE_RADIUS_RESIZE_DIVISOR = 20;
 const DIRECTION_RANGE = MAX_ABS_DIRECTION_SPEED * 2;
 
 export interface ParticleAnimationOptions {
@@ -22,6 +22,10 @@ export class ParticleAnimation {
 	#context: CanvasRenderingContext2D;
 
 	#particles: Particle[] = [];
+
+	#getMouseRadius(divisor: number): number {
+		return Math.min(this.#canvas.width, this.#canvas.height) / divisor;
+	}
 
 	constructor(options: ParticleAnimationOptions) {
 		this.#canvas = document.getElementById(options.canvasId) as HTMLCanvasElement;
@@ -38,9 +42,7 @@ export class ParticleAnimation {
 		this.#mouse = new Mouse({
 			x: 0,
 			y: 0,
-			radius:
-				(this.#canvas.height / MOUSE_RADIUS_INIT_DIVISOR) *
-				(this.#canvas.width / MOUSE_RADIUS_INIT_DIVISOR),
+			radius: this.#getMouseRadius(MOUSE_RADIUS_INIT_DIVISOR),
 		});
 
 		this.#registerEventListeners();
@@ -109,13 +111,13 @@ export class ParticleAnimation {
 
 	#registerEventListeners(): void {
 		window.addEventListener("mousemove", (e) => this.#mouse.update(e.x, e.y));
-		window.addEventListener("mouseout", () => this.#mouse.update(0, 0));
+		window.addEventListener("mouseout", () =>
+			this.#mouse.update(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY),
+		);
 		window.addEventListener("resize", () => {
 			this.#canvas.width = window.innerWidth;
 			this.#canvas.height = window.innerHeight;
-			this.#mouse.radius =
-				(this.#canvas.height / MOUSE_RADIUS_RESIZE_DIVISOR) *
-				(this.#canvas.width / MOUSE_RADIUS_RESIZE_DIVISOR);
+			this.#mouse.radius = this.#getMouseRadius(MOUSE_RADIUS_RESIZE_DIVISOR);
 			this.#init();
 		});
 	}
