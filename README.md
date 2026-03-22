@@ -1,6 +1,6 @@
 # Particle Animation
 
-Interactive canvas-based particle animation with mouse interaction.
+Canvas-based particle animation with mouse interaction.
 
 ![Particle animation demo](public/assets/demo.gif)
 
@@ -12,9 +12,9 @@ Interactive canvas-based particle animation with mouse interaction.
 
 ## Setup
 
-The project uses `TypeScript` to make development simpler and more reliable also uses `esbuild` for bundling.
+The project uses `TypeScript` to make development simpler and more reliable, and also uses `esbuild` for bundling.
 
-To install dependencies run the following command:
+To install dependencies, run the following command:
 
 ```bash
 pnpm install
