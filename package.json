@@ -1,7 +1,7 @@
 {
 	"name": "@mrksbnc/particle-animation",
 	"version": "1.0.0",
-	"description": "Simple particle animation ",
+	"description": "Simple canvas-based particle animation written in TypeScript",
 	"keywords": [],
 	"license": "MIT",
 	"author": "Bence Markus",
