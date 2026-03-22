@@ -11,7 +11,8 @@
 		"fmt:check": "oxfmt --check .",
 		"lint": "oxlint",
 		"lint:spell": "cspell --config ./cspell.yaml \"**/*.{ts,html}\" --verbose",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"dev": "pnpm build && open dist/index.html"
 	},
 	"devDependencies": {
 		"cspell": "^9.7.0",
