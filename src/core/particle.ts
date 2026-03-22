@@ -1,4 +1,4 @@
-import type { Mouse } from "./mouse";
+import type { Mouse } from './mouse';
 
 export interface ParticleOptions {
 	x: number;

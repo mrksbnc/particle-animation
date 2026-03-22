@@ -1,5 +1,5 @@
-import { Mouse } from "./mouse";
-import { Particle } from "./particle";
+import { Mouse } from './mouse';
+import { Particle } from './particle';
 
 const DIAMETER_FACTOR = 2;
 const PARTICLE_SIZE_RANGE = 5;
@@ -34,14 +34,14 @@ export class ParticleAnimation {
 	constructor(options: ParticleAnimationOptions) {
 		this.#canvas = document.getElementById(options.canvasId) as HTMLCanvasElement;
 
-		const context = this.#canvas.getContext("2d");
+		const context = this.#canvas.getContext('2d');
 		if (!context) {
-			throw new Error("No context was found");
+			throw new Error('No context was found');
 		}
 
 		this.#context = context;
-		this.#particleColor = options.particleColor ?? "#FFFFFF";
-		this.#connectionColor = options.connectionColor ?? "255,255,255";
+		this.#particleColor = options.particleColor ?? '#FFFFFF';
+		this.#connectionColor = options.connectionColor ?? '255,255,255';
 		this.#canvas.width = window.innerWidth;
 		this.#canvas.height = window.innerHeight;
 
@@ -118,13 +118,13 @@ export class ParticleAnimation {
 	}
 
 	#registerEventListeners(): void {
-		window.addEventListener("mousemove", (e) => this.#mouse.update(e.x, e.y));
+		window.addEventListener('mousemove', (e) => this.#mouse.update(e.x, e.y));
 
-		window.addEventListener("mouseout", () =>
+		window.addEventListener('mouseout', () =>
 			this.#mouse.update(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY),
 		);
 
-		window.addEventListener("resize", () => {
+		window.addEventListener('resize', () => {
 			this.#canvas.width = window.innerWidth;
 			this.#canvas.height = window.innerHeight;
 			this.#mouse.radius = this.#getMouseRadius(MOUSE_RADIUS_RESIZE_DIVISOR);

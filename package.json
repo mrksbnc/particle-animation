@@ -8,9 +8,9 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc --noEmit && node esbuild.config.mjs",
-		"fmt": "oxfmt .",
-		"fmt:check": "oxfmt --check .",
-		"lint": "oxlint",
+		"fmt": "oxfmt",
+		"fmt:check": "oxfmt --check",
+		"lint": "oxlint --fix",
 		"lint:spell": "cspell --config ./cspell.yaml \"**/*.{ts,html}\" --verbose",
 		"typecheck": "tsc --noEmit",
 		"dev": "pnpm build && open dist/index.html",
