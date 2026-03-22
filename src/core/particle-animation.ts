@@ -14,12 +14,16 @@ const DIRECTION_RANGE = MAX_ABS_DIRECTION_SPEED * 2;
 
 export interface ParticleAnimationOptions {
 	canvasId: string;
+	particleColor?: string;
+	connectionColor?: string;
 }
 
 export class ParticleAnimation {
 	#mouse: Mouse;
 	#canvas: HTMLCanvasElement;
 	#context: CanvasRenderingContext2D;
+	#particleColor: string;
+	#connectionColor: string;
 
 	#particles: Particle[] = [];
 
@@ -36,6 +40,8 @@ export class ParticleAnimation {
 		}
 
 		this.#context = context;
+		this.#particleColor = options.particleColor ?? "#FFFFFF";
+		this.#connectionColor = options.connectionColor ?? "255,255,255";
 		this.#canvas.width = window.innerWidth;
 		this.#canvas.height = window.innerHeight;
 
@@ -68,6 +74,7 @@ export class ParticleAnimation {
 					directionY,
 					mouse: this.#mouse,
 					canvas: this.#canvas,
+					color: this.#particleColor,
 				}),
 			);
 		}
@@ -98,7 +105,8 @@ export class ParticleAnimation {
 
 				if (distance < maxConnectionDistance) {
 					const opacity = 1 - distance / OPACITY_DISTANCE_FACTOR;
-					this.#context.strokeStyle = `rgba(255,255,255,${opacity})`;
+
+					this.#context.strokeStyle = `rgba(${this.#connectionColor},${opacity})`;
 					this.#context.lineWidth = 1;
 					this.#context.beginPath();
 					this.#context.moveTo(this.#particles[i].x, this.#particles[i].y);
@@ -111,15 +119,26 @@ export class ParticleAnimation {
 
 	#registerEventListeners(): void {
 		window.addEventListener("mousemove", (e) => this.#mouse.update(e.x, e.y));
+
 		window.addEventListener("mouseout", () =>
 			this.#mouse.update(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY),
 		);
+
 		window.addEventListener("resize", () => {
 			this.#canvas.width = window.innerWidth;
 			this.#canvas.height = window.innerHeight;
 			this.#mouse.radius = this.#getMouseRadius(MOUSE_RADIUS_RESIZE_DIVISOR);
 			this.#init();
 		});
+	}
+
+	setThemeColors(particleColor: string, connectionColor: string): void {
+		this.#particleColor = particleColor;
+		this.#connectionColor = connectionColor;
+
+		for (const particle of this.#particles) {
+			particle.setColor(particleColor);
+		}
 	}
 
 	start(): void {

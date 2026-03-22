@@ -8,7 +8,7 @@ export interface ParticleOptions {
 	directionX: number;
 	directionY: number;
 	canvas: HTMLCanvasElement;
-	color?: string;
+	color: string;
 }
 
 export class Particle {
@@ -29,7 +29,7 @@ export class Particle {
 		this.#directionY = options.directionY;
 		this.#mouse = options.mouse;
 		this.#canvas = options.canvas;
-		this.#color = options.color ?? "#FFFFFF";
+		this.#color = options.color;
 	}
 
 	draw(ctx: CanvasRenderingContext2D): void {
@@ -37,6 +37,10 @@ export class Particle {
 		ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
 		ctx.fillStyle = this.#color;
 		ctx.fill();
+	}
+
+	setColor(color: string): void {
+		this.#color = color;
 	}
 
 	update(): void {

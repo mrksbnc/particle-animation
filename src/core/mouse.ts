@@ -15,12 +15,12 @@ export class Mouse {
 		this.radius = options.radius;
 	}
 
+	getPosition(): { x: number; y: number } {
+		return { x: this.x, y: this.y };
+	}
+
 	update(x: number, y: number): void {
 		this.x = x;
 		this.y = y;
-	}
-
-	getPosition(): { x: number; y: number } {
-		return { x: this.x, y: this.y };
 	}
 }

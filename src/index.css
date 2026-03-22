@@ -1,14 +1,101 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root,
+[data-theme="dark"] {
+	--bg-color: oklch(13% 0.028 261.692);
+	--particle-color: #ffffff;
+	--connection-color: 255, 255, 255;
+	--navbar-bg: rgba(0, 0, 0, 0.4);
+	--navbar-text: #ffffff;
+	--toggle-bg: rgba(255, 255, 255, 0.1);
+	--toggle-hover-bg: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] {
+	--bg-color: oklch(95% 0.01 260);
+	--particle-color: #1a1a2e;
+	--connection-color: 30, 30, 60;
+	--navbar-bg: rgba(255, 255, 255, 0.6);
+	--navbar-text: #1a1a2e;
+	--toggle-bg: rgba(0, 0, 0, 0.08);
+	--toggle-hover-bg: rgba(0, 0, 0, 0.15);
 }
 
 #particle-animation__canvas {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: oklch(13% 0.028 261.692);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: var(--bg-color);
+	transition: background 0.3s ease;
+}
+
+.navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	padding: 0.75rem 1.5rem;
+	justify-content: flex-end;
+	backdrop-filter: blur(10px);
+	background: var(--navbar-bg);
+	-webkit-backdrop-filter: blur(10px);
+}
+
+.navbar__title {
+	font-family:
+		system-ui,
+		-apple-system,
+		sans-serif;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--navbar-text);
+	letter-spacing: 0.02em;
+}
+
+.navbar__theme-toggle {
+	width: 40px;
+	height: 40px;
+	border: none;
+	display: flex;
+	cursor: pointer;
+	align-items: center;
+	border-radius: 0.5rem;
+	justify-content: center;
+	color: var(--navbar-text);
+	background: var(--toggle-bg);
+	transition: background 0.2s ease;
+}
+
+.navbar__theme-toggle:hover {
+	background: var(--toggle-hover-bg);
+}
+
+.navbar__theme-toggle:focus-visible {
+	outline: 2px solid var(--navbar-text);
+	outline-offset: 2px;
+}
+
+[data-theme="dark"] .icon--sun {
+	display: block;
+}
+
+[data-theme="dark"] .icon--moon {
+	display: none;
+}
+
+[data-theme="light"] .icon--sun {
+	display: none;
+}
+
+[data-theme="light"] .icon--moon {
+	display: block;
 }
